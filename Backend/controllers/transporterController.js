@@ -26,14 +26,7 @@ exports.loginTransporter = async (req, res, next) => {
     });
   }
   const user = await User.findOne({ email }).select("+password");
-  if (user.type != "transporter") {
-    [
-      res.status(401).json({
-        success: true,
-        message: "No such transporter exist ",
-      }),
-    ];
-  }
+  console.log(user)
   if (!user) {
     res.status(401).json({
       success: true,
@@ -41,6 +34,14 @@ exports.loginTransporter = async (req, res, next) => {
     });
   }
   if (password != user.password) {
+    if (user.type != "transporter") {
+      [
+        res.status(401).json({
+          success: true,
+          message: "No such transporter exist ",
+        }),
+      ];
+    }
     res.status(401).json({
       success: true,
       message: "Invalid Email or password",

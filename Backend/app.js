@@ -23,8 +23,12 @@ app.use(cookieParser());
 
 const transporter=require("./routers/transporterRoute");
 const manufacturer=require("./routers/manufactureRoute");
+const errorHandler = require("./middlerware/errorHandler");
 
 app.use("/transporter/v1",transporter)
 app.use("/manufacturer/v1",manufacturer)
+
+
+app.use(errorHandler)
 
 module.exports = app;
